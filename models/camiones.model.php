@@ -2,25 +2,25 @@
     //modelo de datos de productos
     require_once("libs/dao.php");
 
-    function obtenerCategorias(){
-        $categorias = array();
-        $sqlstr = "select * from categorias;";
-        $categorias = obtenerRegistros($sqlstr);
-        return $categorias;
+    function obtenerCamiones(){
+        $camiones = array();
+        $sqlstr = "select * from camiones;";
+        $camiones = obtenerRegistros($sqlstr);
+        return $camiones;
     }
-    function obtenerCategoria($categoriaID){
-      $categoria = array();
-      $sqlstr = "select * from categorias where ctgid = %d;";
-      $sqlstr = sprintf($sqlstr, $categoriaID);
-      $categoria = obtenerUnRegistro($sqlstr);
-      return $categoria;
+    function obtenerCamion($camionID){
+      $camion = array();
+      $sqlstr = "select * from camiones where cam_id = %d;";
+      $sqlstr = sprintf($sqlstr, $camionID);
+      $camion = obtenerUnRegistro($sqlstr);
+      return $camion;
     }
-    function insertarCategoria($categoria){
-      if($categoria && is_array($categoria)){
-         $sqlInsert = "INSERT INTO categorias(`ctgdsc`,`ctgest`)VALUES('%s','%s');";
+    function insertarCamion($camion){
+      if($camion && is_array($camion)){
+         $sqlInsert = "INSERT INTO camiones(`ctgdsc`,`ctgest`)VALUES('%s','%s');";
          $sqlInsert = sprintf($sqlInsert,
-                        valstr($categoria["ctgdsc"]),
-                        valstr($categoria["ctgest"])
+                        valstr($camion["ctgdsc"]),
+                        valstr($camion["ctgest"])
                       );
          if(ejecutarNonQuery($sqlInsert)){
            return getLastInserId();
@@ -29,24 +29,24 @@
       return false;
     }
 
-    function actualizarCategoria($categoria){
-      if($categoria && is_array($categoria)){
-        $sqlUpdate = "update categorias set ctgdsc='%s', ctgest='%s' where ctgid=%d;";
+    function actualizarCamion($camion){
+      if($camion && is_array($camion)){
+        $sqlUpdate = "update camiones set ctgdsc='%s', ctgest='%s' where cam_id=%d;";
         $sqlUpdate = sprintf($sqlUpdate,
-                      valstr($categoria["ctgdsc"]),
-                      valstr($categoria["ctgest"]),
-                      valstr($categoria["ctgid"])
+                      valstr($camion["ctgdsc"]),
+                      valstr($camion["ctgest"]),
+                      valstr($camion["cam_id"])
                     );
         return ejecutarNonQuery($sqlUpdate);
       }
       return false;
     }
 
-    function borrarCategoria($categoriaID){
-      if($categoriaID){
-        $sqlDelete = "delete from categorias where ctgid=%d;";
+    function borrarCamion($camionID){
+      if($camionID){
+        $sqlDelete = "delete from camiones where cam_id=%d;";
         $sqlDelete = sprintf($sqlDelete,
-                      valstr($categoriaID)
+                      valstr($camionID)
                     );
         return ejecutarNonQuery($sqlDelete);
       }

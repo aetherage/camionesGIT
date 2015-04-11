@@ -2,25 +2,25 @@
     //modelo de datos de productos
     require_once("libs/dao.php");
 
-    function obtenerCategorias(){
-        $categorias = array();
-        $sqlstr = "select * from categorias;";
-        $categorias = obtenerRegistros($sqlstr);
-        return $categorias;
+    function obtenerRutas(){
+        $rutas = array();
+        $sqlstr = "select * from rutas;";
+        $rutas = obtenerRegistros($sqlstr);
+        return $rutas;
     }
-    function obtenerCategoria($categoriaID){
-      $categoria = array();
-      $sqlstr = "select * from categorias where ctgid = %d;";
-      $sqlstr = sprintf($sqlstr, $categoriaID);
-      $categoria = obtenerUnRegistro($sqlstr);
-      return $categoria;
+    function obtenerRuta($rutaID){
+      $ruta = array();
+      $sqlstr = "select * from rutas where ru_id = %d;";
+      $sqlstr = sprintf($sqlstr, $rutaID);
+      $ruta = obtenerUnRegistro($sqlstr);
+      return $ruta;
     }
-    function insertarCategoria($categoria){
-      if($categoria && is_array($categoria)){
-         $sqlInsert = "INSERT INTO categorias(`ctgdsc`,`ctgest`)VALUES('%s','%s');";
+    function insertarRuta($ruta){
+      if($ruta && is_array($ruta)){
+         $sqlInsert = "INSERT INTO rutas(`ctgdsc`,`ctgest`)VALUES('%s','%s');";
          $sqlInsert = sprintf($sqlInsert,
-                        valstr($categoria["ctgdsc"]),
-                        valstr($categoria["ctgest"])
+                        valstr($ruta["ctgdsc"]),
+                        valstr($ruta["ctgest"])
                       );
          if(ejecutarNonQuery($sqlInsert)){
            return getLastInserId();
@@ -29,24 +29,24 @@
       return false;
     }
 
-    function actualizarCategoria($categoria){
-      if($categoria && is_array($categoria)){
-        $sqlUpdate = "update categorias set ctgdsc='%s', ctgest='%s' where ctgid=%d;";
+    function actualizarRuta($ruta){
+      if($ruta && is_array($ruta)){
+        $sqlUpdate = "update rutas set ctgdsc='%s', ctgest='%s' where ru_id=%d;";
         $sqlUpdate = sprintf($sqlUpdate,
-                      valstr($categoria["ctgdsc"]),
-                      valstr($categoria["ctgest"]),
-                      valstr($categoria["ctgid"])
+                      valstr($ruta["ctgdsc"]),
+                      valstr($ruta["ctgest"]),
+                      valstr($ruta["ru_id"])
                     );
         return ejecutarNonQuery($sqlUpdate);
       }
       return false;
     }
 
-    function borrarCategoria($categoriaID){
-      if($categoriaID){
-        $sqlDelete = "delete from categorias where ctgid=%d;";
+    function borrarRuta($rutaID){
+      if($rutaID){
+        $sqlDelete = "delete from rutas where ru_id=%d;";
         $sqlDelete = sprintf($sqlDelete,
-                      valstr($categoriaID)
+                      valstr($rutaID)
                     );
         return ejecutarNonQuery($sqlDelete);
       }

@@ -2,25 +2,25 @@
     //modelo de datos de productos
     require_once("libs/dao.php");
 
-    function obtenerCategorias(){
-        $categorias = array();
-        $sqlstr = "select * from categorias;";
-        $categorias = obtenerRegistros($sqlstr);
-        return $categorias;
+    function obtenerClientes(){
+        $clientes = array();
+        $sqlstr = "select * from clientes;";
+        $clientes = obtenerRegistros($sqlstr);
+        return $clientes;
     }
-    function obtenerCategoria($categoriaID){
-      $categoria = array();
-      $sqlstr = "select * from categorias where ctgid = %d;";
-      $sqlstr = sprintf($sqlstr, $categoriaID);
-      $categoria = obtenerUnRegistro($sqlstr);
-      return $categoria;
+    function obtenerClientes($clienteID){
+      $cliente = array();
+      $sqlstr = "select * from clientes where cli_id = %d;";
+      $sqlstr = sprintf($sqlstr, $clienteID);
+      $cliente = obtenerUnRegistro($sqlstr);
+      return $cliente;
     }
-    function insertarCategoria($categoria){
-      if($categoria && is_array($categoria)){
-         $sqlInsert = "INSERT INTO categorias(`ctgdsc`,`ctgest`)VALUES('%s','%s');";
+    function insertarCliente($cliente){
+      if($cliente && is_array($cliente)){
+         $sqlInsert = "INSERT INTO clientes(`ctgdsc`,`ctgest`)VALUES('%s','%s');";
          $sqlInsert = sprintf($sqlInsert,
-                        valstr($categoria["ctgdsc"]),
-                        valstr($categoria["ctgest"])
+                        valstr($cliente["ctgdsc"]),
+                        valstr($cliente["ctgest"])
                       );
          if(ejecutarNonQuery($sqlInsert)){
            return getLastInserId();
@@ -29,24 +29,24 @@
       return false;
     }
 
-    function actualizarCategoria($categoria){
-      if($categoria && is_array($categoria)){
-        $sqlUpdate = "update categorias set ctgdsc='%s', ctgest='%s' where ctgid=%d;";
+    function actualizarCliente($cliente){
+      if($cliente && is_array($cliente)){
+        $sqlUpdate = "update clientes set ctgdsc='%s', ctgest='%s' where cli_id=%d;";
         $sqlUpdate = sprintf($sqlUpdate,
-                      valstr($categoria["ctgdsc"]),
-                      valstr($categoria["ctgest"]),
-                      valstr($categoria["ctgid"])
+                      valstr($cliente["ctgdsc"]),
+                      valstr($cliente["ctgest"]),
+                      valstr($cliente["cli_id"])
                     );
         return ejecutarNonQuery($sqlUpdate);
       }
       return false;
     }
 
-    function borrarCategoria($categoriaID){
-      if($categoriaID){
-        $sqlDelete = "delete from categorias where ctgid=%d;";
+    function borrarCliente($clienteID){
+      if($clienteID){
+        $sqlDelete = "delete from clientes where cli_id=%d;";
         $sqlDelete = sprintf($sqlDelete,
-                      valstr($categoriaID)
+                      valstr($clienteID)
                     );
         return ejecutarNonQuery($sqlDelete);
       }
